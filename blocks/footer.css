@@ -1,0 +1,13 @@
+.footer {
+  color: #545454;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  max-width: 880px;
+  margin: auto;
+}
+
+.footer__copyright {
+  margin: 68px 0 60px 0;
+}

@@ -1,0 +1,44 @@
+.profile {
+  display: flex;
+  padding: 40px 0 50px;
+}
+
+.profile__image {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 100%;
+  margin-right: 30px;
+}
+
+.profile__info {
+  display: grid;
+  grid-template-areas:
+    "name button"
+    "description .";
+}
+
+.profile__info-name {
+  grid-area: name;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  max-height: 39px;
+  margin: 25px 25px 0 0;
+}
+
+.profile__info-description {
+  grid-area: description;
+  margin: 0;
+}
+
+.profile__info-button {
+  grid-area: button;
+  align-self: baseline;
+  padding-top: 38px;
+  padding-right: 165px;
+}
+
+.profile__add-button {
+  padding-top: 38px;
+  align-self: baseline;
+}
