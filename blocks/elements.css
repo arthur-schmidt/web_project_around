@@ -35,6 +35,10 @@
   margin: 0;
 }
 
+.element__button:hover {
+  opacity: 50%;
+}
+
 @media screen and (max-width: 900px) {
   .elements {
     grid-template-columns: 282px 282px;

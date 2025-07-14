@@ -39,13 +39,25 @@
   padding-right: 165px;
 }
 
+.profile__info-button:hover {
+  opacity: 60%;
+}
+
 .profile__add-button {
   padding-top: 38px;
   justify-self: end;
 }
 
+.profile__add-button:hover {
+  opacity: 60%;
+}
+
 .profile__add-button-big {
   display: none;
+}
+
+.profile__add-button-big:hover {
+  opacity: 60%;
 }
 
 @media screen and (max-width: 885px) {
