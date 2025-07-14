@@ -44,6 +44,10 @@
   justify-self: end;
 }
 
+.profile__add-button-big {
+  display: none;
+}
+
 @media screen and (max-width: 885px) {
   .profile {
     padding: 40px 20px 50px;
@@ -86,6 +90,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 36px;
   }
 
   .profile__info-name {
@@ -99,7 +104,16 @@
 
   .profile__info-description {
     justify-self: center;
-    padding-top: 14px;
+    padding: 14px 0 0 18px;
     font-size: 14px;
+  }
+
+  .profile__add-button {
+    display: none;
+  }
+
+  .profile__add-button-big {
+    display: block;
+    padding-top: 36px;
   }
 }
