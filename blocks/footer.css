@@ -11,3 +11,9 @@
 .footer__copyright {
   margin: 68px 0 60px 0;
 }
+
+@media screen and (max-width: 898px) {
+  .footer__copyright {
+    padding-left: 15px;
+  }
+}

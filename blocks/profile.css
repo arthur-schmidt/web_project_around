@@ -1,6 +1,7 @@
 .profile {
   display: flex;
   padding: 40px 0 50px;
+  justify-content: space-between;
 }
 
 .profile__image {
@@ -40,5 +41,23 @@
 
 .profile__add-button {
   padding-top: 38px;
-  align-self: baseline;
+  justify-self: end;
+}
+
+@media screen and (max-width: 885px) {
+  .profile {
+    padding: 40px 20px 50px;
+  }
+
+  .profile__info-name {
+    font-size: 38px;
+  }
+
+  .profile__info-button {
+    padding-right: 80px;
+  }
+
+  .profile__image {
+    margin-right: 0;
+  }
 }
