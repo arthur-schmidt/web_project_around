@@ -22,10 +22,11 @@
   .header__logo {
     padding-left: 15px;
   }
-
-  .header__line {
-  }
 }
 
 @media screen and (max-width: 560px) {
+  .header__logo {
+    padding: 28px 0 32px 27px;
+    width: 126px;
+  }
 }
