@@ -38,6 +38,9 @@
   opacity: 50%;
 }
 
+.element__button:active {
+}
+
 @media screen and (max-width: 900px) {
   .elements {
     grid-template-columns: 282px 282px;
