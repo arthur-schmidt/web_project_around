@@ -5,4 +5,5 @@
   max-width: 1280px;
   align-items: center;
   margin: auto;
+  display: grid;
 }
