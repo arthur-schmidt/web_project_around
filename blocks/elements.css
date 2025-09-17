@@ -15,6 +15,21 @@
   background-color: #fff;
   border-radius: 10px;
   color: #000;
+  overflow: hidden;
+}
+
+.element__trash {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.element__trash-button {
+  position: relative;
+  left: 249px;
+  top: 20px;
+  overflow: hidden;
 }
 
 .element__image {
