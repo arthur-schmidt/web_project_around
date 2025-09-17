@@ -18,27 +18,39 @@
 }
 
 .element__image {
-  max-height: 282px;
+  height: 282px;
+  width: 100%;
+  object-fit: cover;
 }
 
 .element__description {
   display: flex;
   justify-content: space-between;
   /*max-width: 246px;*/
-  padding: 25px 15px 31px 21px;
+  padding: 24px 15px 31px 21px;
 }
 
 .element__name {
   font-size: 24px;
-  line-height: 100%;
+  line-height: 110%;
+  max-width: 246px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: 0;
 }
 
-.element__button:hover {
+.element__like-button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.element__like-button:hover {
   opacity: 50%;
 }
 
-.element__button:active {
+.element__like-button:active {
 }
 
 @media screen and (max-width: 900px) {
