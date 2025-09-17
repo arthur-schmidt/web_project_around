@@ -80,3 +80,19 @@ initialCards.forEach(function (card) {
 
   cardElement.append(cardTemplate);
 });
+
+let addForm = document.querySelector(".add-popup");
+let addOpenButton = document.querySelector(".profile__add-button-image");
+let addCloseButton = document.querySelector(".add-popup__close-icon");
+
+function openAddForm() {
+  addForm.style.display = "flex";
+}
+
+addOpenButton.addEventListener("click", openAddForm);
+
+function closeAddForm() {
+  addForm.style.display = "none";
+}
+
+addCloseButton.addEventListener("click", closeAddForm);
