@@ -26,8 +26,7 @@
 .element__description {
   display: flex;
   justify-content: space-between;
-  /*max-width: 246px;*/
-  padding: 25px 15px 0 21px;
+  padding: 23px 15px 31px 21px;
 }
 
 .element__name {
