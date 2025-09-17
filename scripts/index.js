@@ -122,9 +122,30 @@ function handleAddFormSubmit(evt) {
   newTitle.textContent = `${titleInput.value}`;
   newImage.src = `${linkInput.value}`;
 
+  const newLikeButton = cardTemplate.querySelector(".element__button-image");
+  newLikeButton.addEventListener("click", function () {
+    if (newLikeButton.src.includes("element-button-active.png")) {
+      newLikeButton.setAttribute("src", "./images/element-button.png");
+    } else {
+      newLikeButton.setAttribute("src", "./images/element-button-active.png");
+    }
+  });
+
   cardElement.prepend(cardTemplate);
   clearInputs();
   closeAddForm();
 }
 
 popupAddForm.addEventListener("submit", handleAddFormSubmit);
+
+const likeButtons = document.querySelectorAll(".element__button-image");
+
+likeButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    if (button.src.includes("element-button-active.png")) {
+      button.setAttribute("src", "./images/element-button.png");
+    } else {
+      button.setAttribute("src", "./images/element-button-active.png");
+    }
+  });
+});
