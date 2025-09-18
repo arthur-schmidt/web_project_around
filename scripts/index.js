@@ -131,6 +131,15 @@ function handleAddFormSubmit(evt) {
     }
   });
 
+  const newTrashButton = cardTemplate.querySelector(".element__trash-button");
+
+  function eraseNewCard(evt) {
+    let card = evt.target.closest(".element");
+    card.remove();
+  }
+
+  newTrashButton.addEventListener("click", eraseNewCard);
+
   cardElement.prepend(cardTemplate);
   clearInputs();
   closeAddForm();
@@ -148,4 +157,14 @@ likeButtons.forEach(function (button) {
       button.setAttribute("src", "./images/element-button-active.png");
     }
   });
+});
+
+const trashButtons = document.querySelectorAll(".element__trash-button");
+function eraseCardTemplate(evt) {
+  let card = evt.target.closest(".element");
+  card.remove();
+}
+
+trashButtons.forEach(function (button) {
+  button.addEventListener("click", eraseCardTemplate);
 });
