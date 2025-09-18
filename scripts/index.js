@@ -82,14 +82,16 @@ initialCards.forEach(function (card) {
 });
 
 const popupAdd = document.querySelector(".add-popup");
-let addOpenButton = document.querySelector(".profile__add-button-image");
+let addOpenButton = document.querySelectorAll(".profile__add-button-click");
 let addCloseButton = document.querySelector(".add-popup__close-icon");
 
 function openAddForm() {
   popupAdd.style.display = "flex";
 }
 
-addOpenButton.addEventListener("click", openAddForm);
+addOpenButton.forEach(function (button) {
+  button.addEventListener("click", openAddForm);
+});
 
 function closeAddForm() {
   popupAdd.style.display = "none";
