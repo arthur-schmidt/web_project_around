@@ -72,7 +72,7 @@
   }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 590px) {
   .elements {
     grid-template-columns: 282px;
   }

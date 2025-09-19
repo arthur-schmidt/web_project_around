@@ -143,8 +143,27 @@ function handleAddFormSubmit(evt) {
   newTrashButton.addEventListener("click", eraseNewCard);
 
   cardElement.prepend(cardTemplate);
+
   clearInputs();
   closeAddForm();
+
+  function openNewImagePopup(evt) {
+    const newImagePopup = document.querySelector(".image-popup");
+    const newPopupImage = newImagePopup.querySelector(".image-popup__image");
+    const popupTitle = newImagePopup.querySelector(".image-popup__text");
+
+    const clickedImage = evt.target;
+    const imageSrc = clickedImage.getAttribute("src");
+
+    const cardElement = clickedImage.closest(".element");
+    const cardTitle = cardElement.querySelector(".element__name").textContent;
+
+    newPopupImage.setAttribute("src", imageSrc);
+    popupTitle.textContent = cardTitle;
+    newImagePopup.style.display = "flex";
+  }
+
+  newImage.addEventListener("click", openNewImagePopup);
 }
 
 popupAddForm.addEventListener("submit", handleAddFormSubmit);
@@ -170,3 +189,34 @@ function eraseCardTemplate(evt) {
 trashButtons.forEach(function (button) {
   button.addEventListener("click", eraseCardTemplate);
 });
+
+const imagePopup = document.querySelector(".image-popup");
+const popupImage = imagePopup.querySelector(".image-popup__image");
+const cardImage = document.querySelectorAll(".element__image");
+
+function openImagePopup(evt) {
+  const clickedImage = evt.target;
+  const imageSrc = clickedImage.getAttribute("src");
+
+  const cardElement = clickedImage.closest(".element");
+  const cardTitle = cardElement.querySelector(".element__name");
+
+  popupImage.setAttribute("src", imageSrc);
+
+  const popupTitle = imagePopup.querySelector(".image-popup__text");
+  popupTitle.textContent = cardTitle.textContent;
+
+  imagePopup.style.display = "flex";
+}
+
+cardImage.forEach((cardImage) => {
+  cardImage.addEventListener("click", openImagePopup);
+});
+
+const closeImageButton = imagePopup.querySelector(".image-popup__close-icon");
+
+function closeImagePopup() {
+  imagePopup.style.display = "none";
+}
+
+closeImageButton.addEventListener("click", closeImagePopup);
