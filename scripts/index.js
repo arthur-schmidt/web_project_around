@@ -1,8 +1,8 @@
-let profileButton = document.querySelector(".profile__info-button");
-let profileForm = document.querySelector(".popup");
-let closeButton = document.querySelector(".popup__close-button");
-let profileName = document.querySelector(".popup__container-name");
-let profileAbout = document.querySelector(".popup__container-about");
+const profileButton = document.querySelector(".profile__info-button");
+const profileForm = document.querySelector(".popup");
+const closeButton = document.querySelector(".popup__close-button");
+const profileName = document.querySelector(".popup__container-name");
+const profileAbout = document.querySelector(".popup__container-about");
 
 function openForm() {
   profileForm.style.display = "flex";
@@ -22,13 +22,13 @@ function closeForm() {
 profileButton.addEventListener("click", openForm);
 closeButton.addEventListener("click", closeForm);
 
-let formElement = document.querySelector("#profile-form");
+const formElement = document.querySelector("#profile-form");
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
-  let nameInput = document.querySelector(".profile__info-name");
-  let jobInput = document.querySelector(".profile__info-description");
+  const nameInput = document.querySelector(".profile__info-name");
+  const jobInput = document.querySelector(".profile__info-description");
 
   nameInput.textContent = `${profileName.value}`;
   jobInput.textContent = `${profileAbout.value}`;
@@ -82,8 +82,8 @@ initialCards.forEach(function (card) {
 });
 
 const popupAdd = document.querySelector(".add-popup");
-let addOpenButton = document.querySelectorAll(".profile__add-button-click");
-let addCloseButton = document.querySelector(".add-popup__close-icon");
+const addOpenButton = document.querySelectorAll(".profile__add-button-click");
+const addCloseButton = document.querySelector(".add-popup__close-icon");
 
 function openAddForm() {
   popupAdd.style.display = "flex";
@@ -102,7 +102,7 @@ addCloseButton.addEventListener("click", closeAddForm);
 const popupAddForm = document.querySelector("#add-form");
 
 function clearInputs() {
-  let inputs = document.querySelectorAll(".form-input");
+  const inputs = document.querySelectorAll(".form-input");
 
   inputs.forEach(function (item) {
     item.value = "";
@@ -116,10 +116,10 @@ function handleAddFormSubmit(evt) {
     .querySelector("#element-template")
     .content.cloneNode(true);
 
-  let titleInput = popupAdd.querySelector(".add-popup__container-name");
-  let linkInput = popupAdd.querySelector(".add-popup__container-link");
-  let newTitle = cardTemplate.querySelector(".element__name");
-  let newImage = cardTemplate.querySelector(".element__image");
+  const titleInput = popupAdd.querySelector(".add-popup__container-name");
+  const linkInput = popupAdd.querySelector(".add-popup__container-link");
+  const newTitle = cardTemplate.querySelector(".element__name");
+  const newImage = cardTemplate.querySelector(".element__image");
 
   newTitle.textContent = `${titleInput.value}`;
   newImage.src = `${linkInput.value}`;
@@ -136,7 +136,7 @@ function handleAddFormSubmit(evt) {
   const newTrashButton = cardTemplate.querySelector(".element__trash-button");
 
   function eraseNewCard(evt) {
-    let card = evt.target.closest(".element");
+    const card = evt.target.closest(".element");
     card.remove();
   }
 
@@ -182,7 +182,7 @@ likeButtons.forEach(function (button) {
 
 const trashButtons = document.querySelectorAll(".element__trash-button");
 function eraseCardTemplate(evt) {
-  let card = evt.target.closest(".element");
+  const card = evt.target.closest(".element");
   card.remove();
 }
 
