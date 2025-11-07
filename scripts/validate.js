@@ -79,5 +79,3 @@ const setEventListeners = (formElement, settings) => {
 };
 
 enableValidation(settings);
-
-// lembre de excluir todas as classes inuteis dos forms no HTML//

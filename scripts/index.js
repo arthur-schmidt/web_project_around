@@ -220,3 +220,25 @@ function closeImagePopup() {
 }
 
 closeImageButton.addEventListener("click", closeImagePopup);
+
+const popupOverlays = document.querySelectorAll(".popup-overlay");
+
+function closePopup() {
+  closeAddForm();
+  closeImagePopup();
+  closeForm();
+}
+
+popupOverlays.forEach((overlay) => {
+  overlay.addEventListener("click", (evt) => {
+    if (evt.target === overlay) {
+      closePopup();
+    }
+  });
+});
+
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closePopup();
+  }
+});
