@@ -1,40 +1,44 @@
-function handleLikeClick(evt) {
-  const button = evt.target;
-  if (button.src.includes("element-button-active.png")) {
-    button.setAttribute("src", "./images/element-button.png");
-  } else {
-    button.setAttribute("src", "./images/element-button-active.png");
-  }
-}
-
-function handleDeleteClick(evt) {
-  const cardElement = evt.target.closest(".element");
-  cardElement.remove();
-}
-
-function handleImageClick(name, link) {
+function openImageModal(name, link) {
   const imagePopup = document.querySelector(".image-popup");
-  const popupImage = imagePopup.querySelector(".image-popup__image");
-  const popupCaption = imagePopup.querySelector(".image-popup__text");
-
+  const image = imagePopup.querySelector(".image-popup__image");
+  const description = imagePopup.querySelector(".image-popup__description");
   imagePopup.style.display = "flex";
-  popupImage.src = link;
-  popupImage.alt = name;
-  popupCaption.textContent = name;
+  image.src = link;
+  image.alt = name;
+  description.textContent = name;
 }
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
+function setupImageModalListeners() {
+  const imagePopup = document.querySelector(".image-popup");
+  const closeButton = imagePopup.querySelector(".image-popup__close-button");
+
+  imagePopup.addEventListener("click", (evt) => {
+    if (evt.target === imagePopup) {
+      closeImageModal();
+    }
+  });
+
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closeImageModal();
+    }
+  });
+
+  closeButton.addEventListener("click", closeImageModal);
 }
 
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
+function closeImageModal() {
+  const imagePopup = document.querySelector(".image-popup");
+  imagePopup.style.display = "none";
+}
+
+function toggleLike(button) {
+  button.classList.toggle("element__like-button_active");
 }
 
 export {
-  handleLikeClick,
-  handleDeleteClick,
-  handleImageClick,
-  openPopup,
-  closePopup,
+  openImageModal,
+  toggleLike,
+  closeImageModal,
+  setupImageModalListeners,
 };

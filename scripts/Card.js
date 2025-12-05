@@ -1,33 +1,53 @@
-import {
-  handleLikeClick,
-  handleDeleteClick,
-  handleImageClick,
-  openPopup,
-  closePopup,
-} from "./utils.js";
+import { openImageModal, toggleLike } from "./utils.js";
 
-export class Card {
-  constructor(data, cardSelector, handleImageClick) {
+export default class Card {
+  constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
-    this._cardSelector = cardSelector;
-    this._handleImageClick = handleImageClick;
+    this._templateSelector = templateSelector;
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector(this._cardSelector)
+      .querySelector(this._templateSelector)
       .content.querySelector(".element")
       .cloneNode(true);
 
     return cardElement;
   }
 
-  createCard() {
+  _handleLikeClick() {
+    toggleLike(this._likeButton);
+  }
+  _handleDeleteClick() {
+    this._element.remove();
+  }
+
+  _handleImageClick() {
+    openImageModal(this._name, this._link); // Chama função do utils.js
+  }
+
+  _setEventListeners() {
+    this._likeButton = this._element.querySelector(".element__like-button");
+    this._trashButton = this._element.querySelector(".element__trash");
+    this._cardImage = this._element.querySelector(".element__image");
+
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeClick();
+    });
+
+    this._trashButton.addEventListener("click", () => {
+      this._handleDeleteClick();
+    });
+
+    this._cardImage.addEventListener("click", () => {
+      this._handleImageClick();
+    });
+  }
+
+  generateCard() {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector(".element__image");
-    this._likeButton = this._element.querySelector(".element__button-image");
-    this._trashButton = this._element.querySelector(".element__trash");
     this._cardTitle = this._element.querySelector(".element__name");
 
     this._cardImage.src = this._link;
@@ -37,15 +57,5 @@ export class Card {
     this._setEventListeners();
 
     return this._element;
-  }
-
-  _setEventListeners() {
-    this._likeButton.addEventListener("click", handleLikeClick);
-
-    this._trashButton.addEventListener("click", handleDeleteClick);
-
-    this._cardImage.addEventListener("click", () => {
-      this._handleImageClick(this._name, this._link);
-    });
   }
 }

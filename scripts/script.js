@@ -78,7 +78,7 @@ function handleProfileFormSubmit(evt) {
   closePopup(evt);
 }
 
-formElement.addEventListener("submit", handleProfileFormSubmit);
+formElement.addEventListener("submiesct", handleProfileFormSubmit);
 
 const initialCards = [
   {
