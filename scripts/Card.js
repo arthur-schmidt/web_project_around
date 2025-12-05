@@ -24,7 +24,7 @@ export default class Card {
   }
 
   _handleImageClick() {
-    openImageModal(this._name, this._link); // Chama função do utils.js
+    openImageModal(this._name, this._link);
   }
 
   _setEventListeners() {

@@ -3,11 +3,11 @@ import FormValidator from "./FormValidator.js";
 import { setupImageModalListeners } from "./utils.js";
 
 const profileButton = document.querySelector(".profile__info-button-image");
-const profilePopup = document.querySelector(".popup");
+const profilePopup = document.querySelector(".popup_type_profile");
 const addButton = document.querySelectorAll(".profile__add-button-click");
-const popupAdd = document.querySelector(".add-popup");
+const popupAdd = document.querySelector(".popup_type_add");
 const profileCloseButton = profilePopup.querySelector(".popup__close-button");
-const addCloseButton = popupAdd.querySelector(".add-popup__close-button");
+const addCloseButton = popupAdd.querySelector(".popup__close-button");
 
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
@@ -35,10 +35,7 @@ profileCloseButton.addEventListener("click", () => closePopup(profilePopup));
 addCloseButton.addEventListener("click", () => closePopup(popupAdd));
 
 function handleOverlayClick(evt) {
-  if (
-    evt.target.classList.contains("popup") ||
-    evt.target.classList.contains("add-popup")
-  ) {
+  if (evt.target.classList.contains("popup")) {
     const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
   }

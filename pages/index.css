@@ -7,5 +7,6 @@
 @import url(../blocks/content.css);
 @import url(../blocks/footer.css);
 @import url(../blocks/popup.css);
-@import url(../blocks/add-popup.css);
+@import url(../blocks/popup_type_add.css);
+@import url(../blocks/popup_type_profile.css);
 @import url(../blocks/image-popup.css);

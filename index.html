@@ -56,17 +56,17 @@
             />
           </a>
         </div>
-        <div class="add-popup popup-overlay">
-          <div class="add-popup__close">
+        <div class="popup popup_type_add popup-overlay">
+          <div class="popup__close">
             <button
-              class="add-popup__close-button"
+              class="popup__close-button"
               type="button"
               aria-label="Fechar janela popup"
             >
               <img
                 src="./images/close-icon.png"
                 alt="Fechar popup"
-                class="add-popup__close-icon"
+                class="popup__close-icon"
               />
             </button>
           </div>
@@ -74,12 +74,12 @@
             id="add-form"
             action="#"
             method="post"
-            class="add-popup__container popup__form"
+            class="popup__container popup__form"
           >
-            <p class="add-popup__container-title">Novo local</p>
+            <p class="popup__container-title">Novo local</p>
             <input
               type="text"
-              class="add-popup__container-input add-popup__container-name form-input popup__input"
+              class="popup__container-input popup__container-name form-input popup__input"
               placeholder="Título"
               minlength="2"
               maxlength="30"
@@ -89,21 +89,21 @@
             <span class="add-form__error title-error"></span>
             <input
               type="url"
-              class="add-popup__container-input add-popup__container-link form-input popup__input"
+              class="popup__container-input popup__container-link form-input popup__input"
               placeholder="Link da imagem"
               required
               name="url"
             />
             <span class="add-form__error url-error"></span>
             <button
-              class="add-popup__container-button popup__button"
+              class="popup__container-button popup__button"
               type="submit"
             >
               Criar
             </button>
           </form>
         </div>
-        <div class="popup popup-overlay">
+        <div class="popup popup_type_profile popup-overlay">
           <div class="popup__close">
             <button
               class="popup__close-button"
