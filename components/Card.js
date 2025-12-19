@@ -1,4 +1,4 @@
-import { openImageModal, toggleLike } from "./utils.js";
+import { openImageModal, toggleLike } from "../scripts/utils.js";
 
 export default class Card {
   constructor(data, templateSelector) {
