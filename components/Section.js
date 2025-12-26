@@ -1,5 +1,3 @@
-// renderiza a lista de itens na seção
-
 export default class Section {
   constructor({ items, renderer }, containerSelector) {
     this._items = items;

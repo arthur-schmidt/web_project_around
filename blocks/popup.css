@@ -51,8 +51,7 @@
   display: block;
   color: #ff0000;
   font-size: 12px;
-  margin-top: 5px;
-  margin-left: 36px;
+  margin: 5px 36px 0;
 }
 
 .popup__container-button {
@@ -122,7 +121,9 @@
   }
 
   .popup__error_visible {
+    margin-top: -35px;
     margin-left: 22px;
+    margin-right: 22px;
   }
 
   .popup__container-button {

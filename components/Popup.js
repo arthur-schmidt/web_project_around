@@ -1,5 +1,3 @@
-// abre e fecha a janela popup
-
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
@@ -23,10 +21,14 @@ export default class Popup {
     this._popup.addEventListener("click", (evt) => {
       if (
         evt.target.classList.contains("popup-overlay") ||
-        evt.target.classList.contains("popup__close-button")
+        evt.target.classList.contains("popup__close-icon")
       ) {
         this.close();
       }
+    });
+
+    document.addEventListener("keydown", (evt) => {
+      this._handleEscClose(evt);
     });
   }
 }
