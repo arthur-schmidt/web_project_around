@@ -1,6 +1,7 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import { setupImageModalListeners } from "../scripts/utils.js";
@@ -83,7 +84,7 @@ const cardsListSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "#element-template");
+      const card = new Card(item, "#element-template", handleCardClick);
       const cardElement = card.generateCard();
       cardsListSection.addItem(cardElement);
     },
@@ -144,6 +145,7 @@ const profilePopup = new PopupWithForm(
   handleProfileSubmit,
   ".popup_type_profile"
 );
+
 const profileValidator = new FormValidator(settings, profileForm);
 
 profilePopup.setEventListeners();
@@ -158,8 +160,6 @@ profileButton.addEventListener("click", () => {
   profilePopup.open();
 });
 
-const cardValidator = new FormValidator(settings, cardForm);
-
 /*const currentProfileName = document.querySelector(
   ".profile__info-name"
 ).textContent;
@@ -167,8 +167,6 @@ const currentProfileAbout = document.querySelector(
   ".profile__info-description"
 ).textContent;
 */
-
-cardValidator.enableValidation();
 
 //profileForm.addEventListener("submit", (evt) => {
 //evt.preventDefault();
@@ -192,12 +190,54 @@ cardValidator.enableValidation();
 //});
 
 const cardForm = document.querySelector("#add-form");
+const titleInput = cardForm.querySelector('input[name="title"]');
+const linkInput = cardForm.querySelector('input[name="url"]');
+
+const addPopup = new PopupWithForm(handleAddSubmit, ".popup_type_add");
+
+function handleAddSubmit(inputValues) {
+  const newCardData = {
+    name: inputValues.title,
+    link: inputValues.url,
+  };
+
+  const newCard = new Card(newCardData, "#element-template", handleCardClick);
+
+  const cardElement = newCard.generateCard();
+
+  cardsListSection.addItem(cardElement);
+
+  addPopup.close();
+}
+
+const addValidator = new FormValidator(settings, cardForm);
+
+addPopup.setEventListeners();
+
+addButton.forEach((button) => {
+  button.addEventListener("click", () => {
+    addValidator.enableValidation();
+    addPopup.open();
+  });
+});
+
+const imagePopup = new PopupWithImage(".image-popup");
+imagePopup.setEventListeners();
+
+function handleCardClick(link, name) {
+  console.log("handleCardClick chamado com:", { link, name });
+  console.log("imagePopup existe?", imagePopup);
+  imagePopup.open(link, name, name);
+}
+
+/////////////// OLD  /////////////////
+/*
+const cardValidator = new FormValidator(settings, cardForm);
+
+cardValidator.enableValidation();
 
 cardForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-
-  const titleInput = cardForm.querySelector('input[name="title"]');
-  const linkInput = cardForm.querySelector('input[name="url"]');
 
   const newCardData = {
     name: titleInput.value,
@@ -214,3 +254,4 @@ cardForm.addEventListener("submit", (evt) => {
     closePopup(openedPopup);
   }
 });
+*/
