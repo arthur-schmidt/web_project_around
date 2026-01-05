@@ -36,13 +36,18 @@ const initialCards = [
   },
 ];
 
+function createAndAddCard(cardData) {
+  const card = new Card(cardData, "#element-template", handleCardClick);
+  const cardElement = card.generateCard();
+  cardsListSection.addItem(cardElement);
+  return cardElement;
+}
+
 const cardsListSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "#element-template", handleCardClick);
-      const cardElement = card.generateCard();
-      cardsListSection.addItem(cardElement);
+      createAndAddCard(item);
     },
   },
   ".elements"
@@ -107,12 +112,7 @@ function handleAddSubmit(inputValues) {
     name: inputValues.title,
     link: inputValues.url,
   };
-
-  const newCard = new Card(newCardData, "#element-template", handleCardClick);
-
-  const cardElement = newCard.generateCard();
-
-  cardsListSection.addItem(cardElement);
+  createAndAddCard(newCardData);
 
   addPopup.close();
 }
