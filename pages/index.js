@@ -7,51 +7,7 @@ import UserInfo from "../components/UserInfo.js";
 import { setupImageModalListeners } from "../scripts/utils.js";
 
 const profileButton = document.querySelector(".profile__info-button-image");
-// const profilePopup = document.querySelector(".popup_type_profile");
 const addButton = document.querySelectorAll(".profile__add-button-click");
-const popupAdd = document.querySelector(".popup_type_add");
-// const profileCloseButton = profilePopup.querySelector(".popup__close-button");
-const addCloseButton = popupAdd.querySelector(".popup__close-button");
-
-/*
-function openPopup(popupElement) {
-  popupElement.classList.add("popup_opened");
-  popupElement.addEventListener("click", handleOverlayClick);
-  document.addEventListener("keydown", handleEscapeKey);
-}
-
-function closePopup(popupElement) {
-  popupElement.classList.remove("popup_opened");
-  popupElement.removeEventListener("click", handleOverlayClick);
-  document.removeEventListener("keydown", handleEscapeKey);
-}
-
-addButton.forEach((button) => {
-  button.addEventListener("click", () => {
-    openPopup(popupAdd);
-  });
-});
-
-profileCloseButton.addEventListener("click", () => closePopup(profilePopup));
-addCloseButton.addEventListener("click", () => closePopup(popupAdd));
-
-function handleOverlayClick(evt) {
-  if (evt.target.classList.contains("popup")) {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
-}
-
-function handleEscapeKey(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    if (openedPopup) {
-      closePopup(openedPopup);
-    }
-  }
-}
-
-*/
 
 const initialCards = [
   {
@@ -94,24 +50,6 @@ const cardsListSection = new Section(
 
 cardsListSection.renderItems();
 
-/*
-function createInitialCards() {
-  initialCards.forEach((item) => {
-    const card = new Card(item, "#element-template");
-    const cardElement = card.generateCard();
-    document.querySelector(".elements").append(cardElement);
-  });
-}
-
-//createInitialCards();
-
-function generateCard(item) {
-  const card = new Card(item, "#element-template");
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
-*/
 setupImageModalListeners();
 
 const settings = {
@@ -160,38 +98,7 @@ profileButton.addEventListener("click", () => {
   profilePopup.open();
 });
 
-/*const currentProfileName = document.querySelector(
-  ".profile__info-name"
-).textContent;
-const currentProfileAbout = document.querySelector(
-  ".profile__info-description"
-).textContent;
-*/
-
-//profileForm.addEventListener("submit", (evt) => {
-//evt.preventDefault();
-
-/*
-  const profileName = document.querySelector(".profile__info-name");
-  const profileAbout = document.querySelector(".profile__info-description");
-
-  const userInfo = user.getUserInfo();
-
-  profileName.textContent = userInfo.name;
-  profileAbout.textContent = ;
- */
-
-// user.setUserInfo({ name: nameInput.value, about: aboutInput.value });
-
-// const openedPopup = document.querySelector(".popup_opened");
-//if (openedPopup) {
-//  closePopup(openedPopup);
-// }
-//});
-
 const cardForm = document.querySelector("#add-form");
-const titleInput = cardForm.querySelector('input[name="title"]');
-const linkInput = cardForm.querySelector('input[name="url"]');
 
 const addPopup = new PopupWithForm(handleAddSubmit, ".popup_type_add");
 
@@ -229,29 +136,3 @@ function handleCardClick(link, name) {
   console.log("imagePopup existe?", imagePopup);
   imagePopup.open(link, name, name);
 }
-
-/////////////// OLD  /////////////////
-/*
-const cardValidator = new FormValidator(settings, cardForm);
-
-cardValidator.enableValidation();
-
-cardForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-
-  const newCardData = {
-    name: titleInput.value,
-    link: linkInput.value,
-  };
-
-  const newCard = generateCard(newCardData);
-  document.querySelector(".elements").prepend(newCard);
-
-  cardForm.reset();
-
-  const openedPopup = document.querySelector(".popup_opened");
-  if (openedPopup) {
-    closePopup(openedPopup);
-  }
-});
-*/

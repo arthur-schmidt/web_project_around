@@ -29,7 +29,7 @@ function setupImageModalListeners() {
 
 function closeImageModal() {
   const imagePopup = document.querySelector(".image-popup");
-  imagePopup.style.display = "none";
+  imagePopup.classList.remove("popup_opened");
 }
 
 function toggleLike(button) {

@@ -5,12 +5,11 @@ export default class Popup {
   }
 
   open() {
-    console.log("Popup open chamado. Adicionando classe popup_opened.");
-    console.log("Popup antes:", this._popup.classList.contains("popup_opened"));
+    console.log("Antes de adicionar classe:", this._popup.classList.toString());
     this._popup.classList.add("popup_opened");
     console.log(
-      "Popup depois:",
-      this._popup.classList.contains("popup_opened")
+      "Depois de adicionar classe:",
+      this._popup.classList.toString()
     );
     document.addEventListener("keydown", this._handleEscClose);
   }
