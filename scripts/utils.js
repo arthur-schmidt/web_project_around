@@ -2,10 +2,11 @@ function openImageModal(name, link) {
   const imagePopup = document.querySelector(".image-popup");
   const image = imagePopup.querySelector(".image-popup__image");
   const description = imagePopup.querySelector(".image-popup__description");
-  imagePopup.style.display = "flex";
+
   image.src = link;
   image.alt = name;
   description.textContent = name;
+  imagePopup.classList.add("popup_opened");
 }
 
 function setupImageModalListeners() {

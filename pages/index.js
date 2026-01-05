@@ -132,7 +132,5 @@ const imagePopup = new PopupWithImage(".image-popup");
 imagePopup.setEventListeners();
 
 function handleCardClick(link, name) {
-  console.log("handleCardClick chamado com:", { link, name });
-  console.log("imagePopup existe?", imagePopup);
   imagePopup.open(link, name, name);
 }

@@ -25,7 +25,6 @@ export default class Card {
   }
 
   _handleImageClick() {
-    console.log("Card image clicado. Chamando handleCardClick.");
     this._handleCardClick(this._link, this._name, this._name);
   }
 
