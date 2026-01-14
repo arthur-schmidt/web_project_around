@@ -144,3 +144,11 @@ const api = new Api({
     "Content-Type": "application/json",
   },
 });
+
+api.getUserInfo().then((data) => {
+  const userData = {
+    name: data.name,
+    about: data.about,
+  };
+  user.setUserInfo(userData);
+});
