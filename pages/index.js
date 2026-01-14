@@ -6,6 +6,8 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import { setupImageModalListeners } from "../scripts/utils.js";
 
+import Api from "../components/Api.js";
+
 const profileButton = document.querySelector(".profile__info-button-image");
 const addButton = document.querySelectorAll(".profile__add-button-click");
 
@@ -134,3 +136,11 @@ imagePopup.setEventListeners();
 function handleCardClick(link, name) {
   imagePopup.open(link, name, name);
 }
+
+const api = new Api({
+  baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
+  headers: {
+    authorization: "26d54752-d871-4075-a046-17b8f1f75ce5",
+    "Content-Type": "application/json",
+  },
+});
