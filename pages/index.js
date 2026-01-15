@@ -161,21 +161,23 @@ profileButton.addEventListener("click", () => {
 });
 
 const cardForm = document.querySelector("#add-form");
-
 const addPopup = new PopupWithForm(handleAddSubmit, ".popup_type_add");
+const addValidator = new FormValidator(settings, cardForm);
+const addButton = document.querySelectorAll(".profile__add-button-click");
+const imagePopup = new PopupWithImage(".image-popup");
+imagePopup.setEventListeners();
 
 function handleAddSubmit(inputValues) {
   const newCardData = {
     name: inputValues.title,
     link: inputValues.url,
   };
-  createAndAddCard(newCardData);
 
-  addPopup.close();
+  api.addCard(newCardData).then((savedCard) => {
+    createAndAddCard(savedCard);
+    addPopup.close();
+  });
 }
-
-const addValidator = new FormValidator(settings, cardForm);
-const addButton = document.querySelectorAll(".profile__add-button-click");
 
 addPopup.setEventListeners();
 
@@ -185,9 +187,6 @@ addButton.forEach((button) => {
     addPopup.open();
   });
 });
-
-const imagePopup = new PopupWithImage(".image-popup");
-imagePopup.setEventListeners();
 
 function handleCardClick(link, name) {
   imagePopup.open(link, name, name);
