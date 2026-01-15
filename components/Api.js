@@ -12,7 +12,23 @@ export default class Api {
         if (res.ok) {
           return res.json();
         }
-        return Promise.reject(`Error: ${res.statusText}`);
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        return Promise.reject(err);
+      });
+  }
+
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => {
         console.log(err);

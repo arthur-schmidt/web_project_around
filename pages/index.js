@@ -5,13 +5,9 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import { setupImageModalListeners } from "../scripts/utils.js";
-
 import Api from "../components/Api.js";
 
-const profileButton = document.querySelector(".profile__info-button-image");
-const addButton = document.querySelectorAll(".profile__add-button-click");
-
-const initialCards = [
+/* const initialCards = [
   {
     name: "Vale de Yosemite",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
@@ -38,7 +34,38 @@ const initialCards = [
   },
 ];
 
-function createAndAddCard(cardData) {
+
+const cardsListSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      createAndAddCard(item);
+    },
+  },
+  ".elements"
+);
+
+cardsListSection.renderItems(); */
+
+/* api.getUserInfo().then((data) => {
+  const userData = {
+    name: data.name,
+    about: data.about,
+  };
+  user.setUserInfo(userData);
+});
+
+api.getInitialCards().then((data) => {
+  data.forEach((cardData) => {
+    const card = new Card(cardData, "#element-template", handleCardClick);
+    const cardElement = card.generateCard();
+    cardsListSection.addItem(cardElement);
+  });
+}); */
+
+////////////////////////////////////////////////
+
+/* function createAndAddCard(cardData) {
   const card = new Card(cardData, "#element-template", handleCardClick);
   const cardElement = card.generateCard();
   cardsListSection.addItem(cardElement);
@@ -53,9 +80,36 @@ const cardsListSection = new Section(
     },
   },
   ".elements"
+); */
+
+const api = new Api({
+  baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
+  headers: {
+    authorization: "26d54752-d871-4075-a046-17b8f1f75ce5",
+    "Content-Type": "application/json",
+  },
+});
+
+function createAndAddCard(cardData) {
+  console.log("Criando cartao:", cardData.name);
+  const card = new Card(cardData, "#element-template", handleCardClick);
+  const cardElement = card.generateCard();
+  cardsListSection.addItem(cardElement);
+  return cardElement;
+}
+
+const cardsListSection = new Section(
+  { items: [], renderer: createAndAddCard },
+  ".elements"
 );
 
-cardsListSection.renderItems();
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
+  user.setUserInfo(res[0]);
+  console.log(res[1]);
+  res[1].forEach((cardData) => {
+    createAndAddCard(cardData);
+  });
+});
 
 setupImageModalListeners();
 
@@ -92,6 +146,7 @@ const profilePopup = new PopupWithForm(
 );
 
 const profileValidator = new FormValidator(settings, profileForm);
+const profileButton = document.querySelector(".profile__info-button-image");
 
 profilePopup.setEventListeners();
 
@@ -120,6 +175,7 @@ function handleAddSubmit(inputValues) {
 }
 
 const addValidator = new FormValidator(settings, cardForm);
+const addButton = document.querySelectorAll(".profile__add-button-click");
 
 addPopup.setEventListeners();
 
@@ -136,19 +192,3 @@ imagePopup.setEventListeners();
 function handleCardClick(link, name) {
   imagePopup.open(link, name, name);
 }
-
-const api = new Api({
-  baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
-  headers: {
-    authorization: "26d54752-d871-4075-a046-17b8f1f75ce5",
-    "Content-Type": "application/json",
-  },
-});
-
-api.getUserInfo().then((data) => {
-  const userData = {
-    name: data.name,
-    about: data.about,
-  };
-  user.setUserInfo(userData);
-});
