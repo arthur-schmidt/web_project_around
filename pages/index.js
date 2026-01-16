@@ -132,12 +132,28 @@ const user = new UserInfo({
 });
 
 function handleProfileSubmit(inputValues) {
-  user.setUserInfo({
-    name: inputValues.name,
-    about: inputValues.about,
-  });
+  const submitButton = document.querySelector(".popup__button-profile");
 
-  profilePopup.close();
+  submitButton.textContent = "Salvando...";
+  setTimeout(contactServer, 500);
+
+  function contactServer() {
+    api
+      .updateUserInfo(inputValues)
+      .then(() => {
+        user.setUserInfo({
+          name: inputValues.name,
+          about: inputValues.about,
+        });
+        profilePopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        submitButton.textContent = "Salvar";
+      });
+  }
 }
 
 const profilePopup = new PopupWithForm(
@@ -172,11 +188,22 @@ function handleAddSubmit(inputValues) {
     name: inputValues.title,
     link: inputValues.url,
   };
+  const submitButton = document.querySelector(".popup__button-card");
 
-  api.addCard(newCardData).then((savedCard) => {
-    createAndAddCard(savedCard);
-    addPopup.close();
-  });
+  submitButton.textContent = "Salvando...";
+  setTimeout(contactServer, 500);
+
+  function contactServer() {
+    api
+      .addCard(newCardData)
+      .then((savedCard) => {
+        createAndAddCard(savedCard);
+        addPopup.close();
+      })
+      .finally(() => {
+        submitButton.textContent = "Salvar";
+      });
+  }
 }
 
 addPopup.setEventListeners();
