@@ -2,85 +2,11 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import { setupImageModalListeners } from "../scripts/utils.js";
 import Api from "../components/Api.js";
-
-/* const initialCards = [
-  {
-    name: "Vale de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-  },
-  {
-    name: "Montanhas Carecas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-  },
-  {
-    name: "Parque Nacional da Vanoise ",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-  },
-];
-
-
-const cardsListSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      createAndAddCard(item);
-    },
-  },
-  ".elements"
-);
-
-cardsListSection.renderItems(); */
-
-/* api.getUserInfo().then((data) => {
-  const userData = {
-    name: data.name,
-    about: data.about,
-  };
-  user.setUserInfo(userData);
-});
-
-api.getInitialCards().then((data) => {
-  data.forEach((cardData) => {
-    const card = new Card(cardData, "#element-template", handleCardClick);
-    const cardElement = card.generateCard();
-    cardsListSection.addItem(cardElement);
-  });
-}); */
-
-////////////////////////////////////////////////
-
-/* function createAndAddCard(cardData) {
-  const card = new Card(cardData, "#element-template", handleCardClick);
-  const cardElement = card.generateCard();
-  cardsListSection.addItem(cardElement);
-  return cardElement;
-}
-
-const cardsListSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      createAndAddCard(item);
-    },
-  },
-  ".elements"
-); */
 
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
@@ -91,8 +17,12 @@ const api = new Api({
 });
 
 function createAndAddCard(cardData) {
-  console.log("Criando cartao:", cardData.name);
-  const card = new Card(cardData, "#element-template", handleCardClick);
+  const card = new Card(
+    cardData,
+    "#element-template",
+    handleCardClick,
+    (cardId) => handleDeleteConfirmation(cardId, card)
+  );
   const cardElement = card.generateCard();
   cardsListSection.addItem(cardElement);
   return cardElement;
@@ -103,11 +33,39 @@ const cardsListSection = new Section(
   ".elements"
 );
 
+const confirmationPopup = new PopupWithConfirmation(
+  handleDeleteConfirmation,
+  ".popup_type_delete"
+);
+
+const confirmationButton = document.querySelector(
+  ".popup__container-confirm_button"
+);
+
+const handleClick = (cardId, cardInstance) => {
+  cardInstance.removeCard();
+  api.deleteCard(cardId);
+  setTimeout(finishConfirmation, 1000);
+  confirmationPopup.close();
+};
+
+const confirmationListener = () => {
+  handleClick(cardId, cardInstance);
+};
+
+function handleDeleteConfirmation() {
+  confirmationPopup.open();
+  confirmationButton.addEventListener("click", confirmationListener);
+}
+
+function finishConfirmation() {
+  confirmationButton.removeEventListener("click", confirmationListener);
+}
+
 Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
   user.setUserInfo(res[0]);
-  console.log(res[1]);
   res[1].forEach((cardData) => {
-    createAndAddCard(cardData);
+    const cardElement = createAndAddCard(cardData);
   });
 });
 

@@ -1,11 +1,18 @@
 import { toggleLike } from "../scripts/utils.js";
 
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(
+    data,
+    templateSelector,
+    handleCardClick,
+    handleDeleteConfirmation
+  ) {
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteConfirmation = handleDeleteConfirmation;
   }
 
   _getTemplate() {
@@ -21,7 +28,7 @@ export default class Card {
     toggleLike(this._likeButton);
   }
   _handleDeleteClick() {
-    this._element.remove();
+    this._handleDeleteConfirmation(this._id);
   }
 
   _handleImageClick() {
@@ -58,5 +65,13 @@ export default class Card {
     this._setEventListeners();
 
     return this._element;
+  }
+
+  _getCardId() {
+    return this._id;
+  }
+
+  removeCard() {
+    this._element.remove();
   }
 }

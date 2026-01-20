@@ -41,6 +41,22 @@ export default class Api {
       });
   }
 
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      headers: this.headers,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        return Promise.reject(err);
+      });
+  }
+
   addCard(cardData) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
@@ -62,8 +78,9 @@ export default class Api {
       });
   }
 
-  getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, {
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
       headers: this.headers,
     })
       .then((res) => {

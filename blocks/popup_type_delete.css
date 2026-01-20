@@ -1,0 +1,16 @@
+.popup_type_delete {
+  position: fixed;
+  max-width: 430px;
+  max-height: 181px;
+  top: 270px;
+  left: 425px;
+  z-index: 1000;
+}
+
+.popup__container-title {
+  margin: 34px 36px 38px;
+}
+
+.popup__container-button {
+  margin-top: 0;
+}
