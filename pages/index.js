@@ -33,33 +33,18 @@ const cardsListSection = new Section(
   ".elements"
 );
 
-const confirmationPopup = new PopupWithConfirmation(
-  handleDeleteConfirmation,
-  ".popup_type_delete"
-);
-
-const confirmationButton = document.querySelector(
-  ".popup__container-confirm_button"
-);
-
-const handleClick = (cardId, cardInstance) => {
-  cardInstance.removeCard();
-  api.deleteCard(cardId);
-  setTimeout(finishConfirmation, 1000);
-  confirmationPopup.close();
-};
-
-const confirmationListener = () => {
-  handleClick(cardId, cardInstance);
-};
-
-function handleDeleteConfirmation() {
+function handleDeleteConfirmation(cardId, cardInstance) {
+  const removeCard = () => {
+    cardInstance.removeCard();
+    api.deleteCard(cardId);
+    confirmationPopup.close();
+  };
+  const confirmationPopup = new PopupWithConfirmation(
+    removeCard,
+    ".popup_type_delete"
+  );
+  confirmationPopup.setEventListeners();
   confirmationPopup.open();
-  confirmationButton.addEventListener("click", confirmationListener);
-}
-
-function finishConfirmation() {
-  confirmationButton.removeEventListener("click", confirmationListener);
 }
 
 Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
