@@ -8,6 +8,28 @@
   max-width: 120px;
   max-height: 120px;
   border-radius: 100%;
+  transition: opacity 0.3s;
+}
+
+.profile__image-container {
+  position: relative;
+}
+
+.profile__edit-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.profile__image-container:hover .profile__edit-icon {
+  opacity: 1;
+}
+
+.profile__image-container:hover .profile__image {
+  opacity: 25%;
 }
 
 .profile__info {

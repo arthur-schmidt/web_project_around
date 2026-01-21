@@ -25,11 +25,20 @@
       </header>
       <main class="content">
         <div class="profile">
-          <img
-            src="./images/profile.jpg"
-            alt="Foto de perfil"
-            class="profile__image"
-          />
+          <div class="profile__image-container">
+            <div class="profile__edit-icon">
+              <img
+                src="./images/edit-pfp.png"
+                alt="Editar Imagem"
+                class="profile__edit-image"
+              />
+            </div>
+            <img
+              src="./images/profile.jpg"
+              alt="Foto de perfil"
+              class="profile__image"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__info-name"></h1>
             <p class="profile__info-description"></p>
@@ -189,6 +198,45 @@
               Sim
             </button>
           </div>
+        </div>
+        <div class="popup popup_type_pfp popup-overlay">
+          <div class="popup__close">
+            <button
+              class="popup__close-button"
+              type="button"
+              aria-label="Fechar janela popup"
+            >
+              <img
+                class="popup__close-icon"
+                src="./images/close-icon.png"
+                alt="Fechar popup"
+              />
+            </button>
+          </div>
+          <form
+            id="profile-picture-form"
+            action="#"
+            method="post"
+            class="popup__container popup__form"
+            name="profilepictureform"
+          >
+            <p class="popup__container-title">Alterar a foto de perfil</p>
+            <input
+              type="url"
+              class="popup__container-input popup__container-link form-input popup__input"
+              placeholder="Link da imagem"
+              required
+              name="url"
+            />
+            <span class="popup__form-error url-error"></span>
+            <button
+              class="popup__container-button popup__button popup__button-profile"
+              type="submit"
+              name="profilesubmit"
+            >
+              Salvar
+            </button>
+          </form>
         </div>
         <div class="elements"></div>
         <template id="element-template">

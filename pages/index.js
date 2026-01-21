@@ -55,10 +55,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
   });
 });
 
-//////// add e remove likes
-
-///////////
-
 setupImageModalListeners();
 
 const settings = {
@@ -122,6 +118,29 @@ profileButton.addEventListener("click", () => {
   aboutInput.value = currentUserInfo.about;
 
   profilePopup.open();
+});
+
+const pictureFormElement = document.querySelector("#profile-picture-form");
+
+const pictureFormPopup = new PopupWithForm(
+  handlePictureSubmit,
+  ".popup_type_pfp"
+);
+
+function handlePictureSubmit(inputData) {
+  console.log(inputData); // Para testar
+}
+
+pictureFormPopup.setEventListeners();
+
+const pictureFormValidator = new FormValidator(settings, pictureFormElement);
+
+const pictureFormButton = document.querySelector(".profile__image-container");
+
+pictureFormButton.addEventListener("click", () => {
+  console.log("clicou no container da imagem");
+  pictureFormValidator.enableValidation();
+  pictureFormPopup.open();
 });
 
 const cardForm = document.querySelector("#add-form");
