@@ -21,7 +21,8 @@ function createAndAddCard(cardData) {
     cardData,
     "#element-template",
     handleCardClick,
-    (cardId) => handleDeleteConfirmation(cardId, card)
+    (cardId) => handleDeleteConfirmation(cardId, card),
+    api
   );
   const cardElement = card.generateCard();
   cardsListSection.addItem(cardElement);
@@ -53,6 +54,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
     const cardElement = createAndAddCard(cardData);
   });
 });
+
+//////// add e remove likes
+
+///////////
 
 setupImageModalListeners();
 

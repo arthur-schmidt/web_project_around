@@ -5,11 +5,14 @@ export default class Card {
     data,
     templateSelector,
     handleCardClick,
-    handleDeleteConfirmation
+    handleDeleteConfirmation,
+    api
   ) {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
+    this._isLiked = data.isLiked;
+    this._api = api;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteConfirmation = handleDeleteConfirmation;
@@ -25,8 +28,16 @@ export default class Card {
   }
 
   _handleLikeClick() {
-    toggleLike(this._likeButton);
+    const likePromise = this._isLiked
+      ? this._api.removeLike(this._id)
+      : this._api.addLike(this._id);
+
+    likePromise.then((updateCardData) => {
+      this._isLiked = updateCardData.isLiked;
+      toggleLike(this._likeButton);
+    });
   }
+
   _handleDeleteClick() {
     this._handleDeleteConfirmation(this._id);
   }
@@ -61,6 +72,11 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
+
+    this._likeButton = this._element.querySelector(".element__like-button");
+    this._isLiked
+      ? this._likeButton.classList.add("element__like-button_active")
+      : this._likeButton.classList.remove("element__like-button_active");
 
     this._setEventListeners();
 
