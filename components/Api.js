@@ -41,6 +41,26 @@ export default class Api {
       });
   }
 
+  updateProfilePicture(userData) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: userData.url,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        return Promise.reject(err);
+      });
+  }
+
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers,

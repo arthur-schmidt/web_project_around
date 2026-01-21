@@ -73,6 +73,7 @@ const aboutInput = profileForm.querySelector('input[name="about"]');
 const user = new UserInfo({
   nameSelector: ".profile__info-name",
   aboutSelector: ".profile__info-description",
+  avatarSelector: ".profile__image",
 });
 
 function handleProfileSubmit(inputValues) {
@@ -123,13 +124,9 @@ profileButton.addEventListener("click", () => {
 const pictureFormElement = document.querySelector("#profile-picture-form");
 
 const pictureFormPopup = new PopupWithForm(
-  handlePictureSubmit,
+  handlePictureFormSubmit,
   ".popup_type_pfp"
 );
-
-function handlePictureSubmit(inputData) {
-  console.log(inputData); // Para testar
-}
 
 pictureFormPopup.setEventListeners();
 
@@ -142,6 +139,29 @@ pictureFormButton.addEventListener("click", () => {
   pictureFormValidator.enableValidation();
   pictureFormPopup.open();
 });
+
+function handlePictureFormSubmit(inputValue) {
+  const submitButton = document.querySelector(".popup__button-picture");
+
+  submitButton.textContent = "Salvando...";
+  setTimeout(contactServer, 500);
+
+  function contactServer() {
+    api
+      .updateProfilePicture(inputValue)
+      .then(() => {
+        user.setAvatar(inputValue.url);
+        pictureFormPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        submitButton.textContent = "Salvar";
+        inputValue.textContent = "";
+      });
+  }
+}
 
 const cardForm = document.querySelector("#add-form");
 const addPopup = new PopupWithForm(handleAddSubmit, ".popup_type_add");
