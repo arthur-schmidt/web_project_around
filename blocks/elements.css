@@ -47,7 +47,7 @@
 .element__name {
   font-size: 24px;
   line-height: 110%;
-  max-width: 246px;
+  max-width: 223px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -58,6 +58,11 @@
   border: none;
   padding: 0;
   background-color: transparent;
+  background-image: url("./../images/element-button.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 21px;
+  height: 19px;
 }
 
 .element__like-button:hover {
@@ -66,7 +71,6 @@
 
 .element__like-button_active {
   background-image: url("./../images/element-button-active.png");
-  background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 900px) {

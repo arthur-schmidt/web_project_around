@@ -89,6 +89,7 @@ function handleProfileSubmit(inputValues) {
         user.setUserInfo({
           name: inputValues.name,
           about: inputValues.about,
+          avatar: user.getUserInfo().avatar,
         });
         profilePopup.close();
       })
