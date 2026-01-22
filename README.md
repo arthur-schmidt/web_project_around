@@ -1,10 +1,28 @@
-# Tripleten web_project_around
+# Tripleten — web_project_around
 
-# O projeto Around the US simula um perfil de rede social, onde usuários podem adicionar fotos e curtir publicações. Além disso, oferece um formulário interativo para editar nome, descrição e foto do perfil de maneira dinâmica.
+## 📝 Sobre o projeto
 
+O projeto **Around the US** simula um perfil de rede social. Nele, os usuários podem:
+
+- Adicionar fotos
+- Curtir publicações
+- Editar nome, descrição e foto do perfil por meio de um formulário interativo.
+
+As alterações são aplicadas de forma dinâmica, proporcionando uma experiência mais fluida ao usuário.
+
+## 📸 Capturas de tela
+
+![Demonstração do projeto](/assets/demo-video.mp4)
 ![Print da sessão elements](./images/elements_printscreen.png)
 ![Print da sessão profile](./images/profile_printscreen.png)
 
-# O site foi desenvolvido seguindo a metodologia BEM Flat. Seu layout é responsivo, adaptado para diferentes resoluções de tela. Funcionalidades dinâmicas implementadas com JavaScript, promovendo maior interatividade.
+## 🛠️ Tecnologias e metodologias
 
-# https://arthur-schmidt.github.io/web_project_around/
+- HTML, CSS e JavaScript
+- Metodologia BEM Flat para organização e escalabilidade do CSS
+- Layout responsivo, adaptado para diferentes resoluções de tela
+- Funcionalidades dinâmicas implementadas com JavaScript para maior interatividade
+
+## 🔗 Acesse o projeto:
+
+https://arthur-schmidt.github.io/web_project_around/
