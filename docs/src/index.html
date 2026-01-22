@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Página interativa onde usuários podem adicionar, remover e curtir fotos."
+    />
+    <meta name="author" content="Arthur Schmidt" />
+    <meta name="keywords" content="tripleten, interatividade" />
+    <title>Around the US</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+    <link rel="icon" href="../favicon.svg" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <img
+          src="../images/logo.png"
+          alt="Logo Around the US"
+          class="header__logo"
+        />
+        <div class="header__line"></div>
+      </header>
+      <main class="content">
+        <div class="profile">
+          <div class="profile__image-container">
+            <div class="profile__edit-icon">
+              <img
+                src="../images/edit-pfp.png"
+                alt="Editar Imagem"
+                class="profile__edit-image"
+              />
+            </div>
+            <img src=" " alt="Foto de perfil" class="profile__image" />
+          </div>
+          <div class="profile__info">
+            <h1 class="profile__info-name"></h1>
+            <p class="profile__info-description"></p>
+            <a href="#" class="profile__info-button">
+              <img
+                src="../images/edit-button.png"
+                alt="botão"
+                class="profile__info-button-image"
+              />
+            </a>
+          </div>
+          <a href="#" class="profile__add-button">
+            <img
+              src="../images/add-button.png"
+              alt="botão"
+              class="profile__add-button-image profile__add-button-click"
+            />
+          </a>
+          <a href="#" class="profile__add-button-big">
+            <img
+              src="../images/add-button-big.png"
+              alt="botão"
+              class="profile__add-button-big-img profile__add-button-click"
+            />
+          </a>
+        </div>
+        <div class="popup popup_type_add popup-overlay">
+          <div class="popup__close">
+            <button
+              class="popup__close-button"
+              type="button"
+              aria-label="Fechar janela popup"
+            >
+              <img
+                src="../images/close-icon.png"
+                alt="Fechar popup"
+                class="popup__close-icon"
+              />
+            </button>
+          </div>
+          <form
+            id="add-form"
+            action="#"
+            method="post"
+            class="popup__container popup__form"
+          >
+            <p class="popup__container-title">Novo local</p>
+            <input
+              type="text"
+              class="popup__container-input popup__container-name form-input popup__input"
+              placeholder="Título"
+              minlength="2"
+              maxlength="30"
+              required
+              name="title"
+            />
+            <span class="popup__form-error title-error"></span>
+            <input
+              type="url"
+              class="popup__container-input popup__container-link form-input popup__input"
+              placeholder="Link da imagem"
+              required
+              name="url"
+            />
+            <span class="popup__form-error url-error"></span>
+            <button
+              class="popup__container-button popup__button popup__button-card"
+              type="submit"
+            >
+              Criar
+            </button>
+          </form>
+        </div>
+        <div class="popup popup_type_profile popup-overlay">
+          <div class="popup__close">
+            <button
+              class="popup__close-button"
+              type="button"
+              aria-label="Fechar janela popup"
+            >
+              <img
+                class="popup__close-icon"
+                src="../images/close-icon.png"
+                alt="Fechar popup"
+              />
+            </button>
+          </div>
+          <form
+            id="profile-form"
+            action="#"
+            method="post"
+            class="popup__container popup__form"
+            name="profileform"
+          >
+            <p class="popup__container-title">Editar perfil</p>
+            <input
+              class="popup__container-input popup__container-name form-input popup__input"
+              type="text"
+              placeholder="Nome"
+              name="name"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="popup__form-error name-error"></span>
+            <input
+              type="text"
+              class="popup__container-input popup__container-about form-input popup__input"
+              placeholder="Sobre mim"
+              name="about"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="popup__form-error about-error"></span>
+            <button
+              class="popup__container-button popup__button popup__button-profile"
+              type="submit"
+              name="profilesubmit"
+            >
+              Salvar
+            </button>
+          </form>
+        </div>
+        <div class="popup image-popup popup-overlay">
+          <div class="image-popup__container">
+            <div class="image-popup__close">
+              <button class="image-popup__close-button" type="button">
+                <img
+                  class="image-popup__close-icon"
+                  src="../images/close-icon.png"
+                  alt="Fechar popup"
+                />
+              </button>
+            </div>
+            <img src=" " alt="image popup" class="image-popup__image" />
+            <div class="image-popup__description">
+              <p class="image-popup__text"></p>
+            </div>
+          </div>
+        </div>
+        <div class="popup popup_type_delete popup-overlay">
+          <div class="popup__close">
+            <button class="popup__close-button" type="button">
+              <img
+                class="image-popup__close-icon"
+                src="../images/close-icon.png"
+                alt="Fechar popup"
+              />
+            </button>
+          </div>
+          <div class="popup__container">
+            <p class="popup__container-title">Tem certeza?</p>
+            <button
+              class="popup__container-button popup__container-confirm_button"
+            >
+              Sim
+            </button>
+          </div>
+        </div>
+        <div class="popup popup_type_pfp popup-overlay">
+          <div class="popup__close">
+            <button
+              class="popup__close-button"
+              type="button"
+              aria-label="Fechar janela popup"
+            >
+              <img
+                class="popup__close-icon"
+                src="../images/close-icon.png"
+                alt="Fechar popup"
+              />
+            </button>
+          </div>
+          <form
+            id="profile-picture-form"
+            action="#"
+            method="post"
+            class="popup__container popup__form"
+            name="profilepictureform"
+          >
+            <p class="popup__container-title">Alterar a foto de perfil</p>
+            <input
+              type="url"
+              class="popup__container-input popup__container-link form-input popup__input"
+              placeholder="Link da imagem"
+              required
+              name="url"
+            />
+            <span class="popup__form-error url-error"></span>
+            <button
+              class="popup__container-button popup__button popup__button-picture"
+              type="submit"
+              name="profilesubmit"
+            >
+              Salvar
+            </button>
+          </form>
+        </div>
+        <div class="elements"></div>
+        <template id="element-template">
+          <div class="element">
+            <button class="element__trash">
+              <img
+                src="../images/trash-button.png"
+                alt="botão de excluir"
+                class="element__trash-button"
+              />
+            </button>
+            <img src="" alt="" class="element__image" />
+            <div class="element__description">
+              <h2 class="element__name"></h2>
+              <button class="element__like-button"></button>
+            </div>
+          </div>
+        </template>
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2025 Arthur Schmidt</p>
+      </footer>
+    </div>
+    <script type="module" src="./pages/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup_opened {
+  display: flex;
+}
+
+.popup__container {
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  max-width: 430px;
+  position: relative;
+}
+
+.popup__container-title {
+  font-size: 24px;
+  font-weight: 900;
+  margin: 34px 64px 54px 36px;
+  height: 23px;
+}
+
+.popup__container-input {
+  width: 358px;
+  height: 26.26px;
+  padding: 0;
+  margin: 0 36px 30px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.popup__input_type_error {
+  border-bottom: 1px solid #ff0000;
+  margin-bottom: 0;
+}
+
+.popup__error_visible {
+  display: block;
+  color: #ff0000;
+  font-size: 12px;
+  margin: 5px 36px 0;
+}
+
+.popup__container-button {
+  width: 358px;
+  height: 50.15px;
+  margin: 18px 36px 36px;
+  border-radius: 3px;
+  background-color: #000;
+  color: #fff;
+  border: 0;
+  padding: 0;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.popup__container-button:hover {
+  opacity: 60%;
+}
+
+.popup__button_disabled {
+  border: 1px solid #000000;
+  background-color: #fff;
+  opacity: 20%;
+  color: #000;
+}
+
+.popup__button_disabled:hover {
+  opacity: 20%;
+  cursor: auto;
+}
+
+.popup__close {
+  display: flex;
+  width: 520px;
+  justify-content: flex-end;
+}
+
+.popup__close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup__close-button:hover {
+  opacity: 60%;
+}
+
+.popup__close-icon {
+  width: 40px;
+  height: 40px;
+}
+
+@media screen and (max-width: 560px) {
+  .popup__container {
+    width: 282px;
+  }
+
+  .popup__container-title {
+    font-size: 18px;
+    margin: 25px 22px 76px;
+  }
+
+  .popup__container-input {
+    font-size: 14px;
+    width: 238px;
+    margin: 0 22px 39px;
+  }
+
+  .popup__error_visible {
+    margin-top: -35px;
+    margin-left: 22px;
+    margin-right: 22px;
+  }
+
+  .popup__container-button {
+    width: 238px;
+    margin: 7px 22px 25px;
+    font-size: 14px;
+  }
+
+  .popup__close {
+    width: 282px;
+    margin-bottom: 13.6px;
+  }
+
+  .popup__close-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
