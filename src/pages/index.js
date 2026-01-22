@@ -49,6 +49,10 @@ const profileValidator = new FormValidator(settings, profileForm);
 const pictureFormValidator = new FormValidator(settings, pictureFormElement);
 const addValidator = new FormValidator(settings, cardForm);
 
+pictureFormValidator.enableValidation();
+profileValidator.enableValidation();
+addValidator.enableValidation();
+
 const profilePopup = new PopupWithForm(
   handleProfileSubmit,
   ".popup_type_profile"
@@ -93,14 +97,11 @@ function submitForm(buttonSelector, contactServerOperation) {
 }
 
 pictureFormButton.addEventListener("click", () => {
-  pictureFormValidator.enableValidation();
   pictureFormPopup.open();
 });
 
 profileButton.addEventListener("click", () => {
-  profileValidator.enableValidation();
   const currentUserInfo = user.getUserInfo();
-
   nameInput.value = currentUserInfo.name;
   aboutInput.value = currentUserInfo.about;
 
@@ -109,7 +110,6 @@ profileButton.addEventListener("click", () => {
 
 addButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    addValidator.enableValidation();
     addPopup.open();
   });
 });
