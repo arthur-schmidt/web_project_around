@@ -16,6 +16,50 @@ const api = new Api({
   },
 });
 
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const profileForm = document.querySelector("#profile-form");
+const nameInput = profileForm.querySelector('input[name="name"]');
+const aboutInput = profileForm.querySelector('input[name="about"]');
+const profileButton = document.querySelector(".profile__info-button-image");
+const pictureFormElement = document.querySelector("#profile-picture-form");
+const pictureFormButton = document.querySelector(".profile__image-container");
+const cardForm = document.querySelector("#add-form");
+const addButtons = document.querySelectorAll(".profile__add-button-click");
+
+const cardsListSection = new Section(
+  { items: [], renderer: createAndAddCard },
+  ".elements"
+);
+
+const user = new UserInfo({
+  nameSelector: ".profile__info-name",
+  aboutSelector: ".profile__info-description",
+  avatarSelector: ".profile__image",
+});
+
+const profileValidator = new FormValidator(settings, profileForm);
+const pictureFormValidator = new FormValidator(settings, pictureFormElement);
+const addValidator = new FormValidator(settings, cardForm);
+
+const profilePopup = new PopupWithForm(
+  handleProfileSubmit,
+  ".popup_type_profile"
+);
+const pictureFormPopup = new PopupWithForm(
+  handlePictureFormSubmit,
+  ".popup_type_pfp"
+);
+const addPopup = new PopupWithForm(handleAddSubmit, ".popup_type_add");
+const imagePopup = new PopupWithImage(".image-popup");
+
 function createAndAddCard(cardData) {
   const card = new Card(
     cardData,
@@ -29,10 +73,98 @@ function createAndAddCard(cardData) {
   return cardElement;
 }
 
-const cardsListSection = new Section(
-  { items: [], renderer: createAndAddCard },
-  ".elements"
-);
+function submitForm(buttonSelector, contactServerOperation) {
+  const submitButton = document.querySelector(buttonSelector);
+
+  submitButton.textContent = "Salvando...";
+
+  setTimeout(() => {
+    const contactServer = contactServerOperation();
+
+    contactServer
+      .then(() => {})
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        submitButton.textContent = "Salvar";
+      });
+  }, 500);
+}
+
+pictureFormButton.addEventListener("click", () => {
+  pictureFormValidator.enableValidation();
+  pictureFormPopup.open();
+});
+
+profileButton.addEventListener("click", () => {
+  profileValidator.enableValidation();
+  const currentUserInfo = user.getUserInfo();
+
+  nameInput.value = currentUserInfo.name;
+  aboutInput.value = currentUserInfo.about;
+
+  profilePopup.open();
+});
+
+addButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    addValidator.enableValidation();
+    addPopup.open();
+  });
+});
+
+profilePopup.setEventListeners();
+pictureFormPopup.setEventListeners();
+imagePopup.setEventListeners();
+addPopup.setEventListeners();
+setupImageModalListeners();
+
+function handleProfileSubmit(inputValues) {
+  const contactServerOperation = () => {
+    return api.updateUserInfo(inputValues).then(() => {
+      user.setUserInfo({
+        name: inputValues.name,
+        about: inputValues.about,
+        avatar: user.getUserInfo().avatar,
+      });
+      profilePopup.close();
+    });
+  };
+
+  submitForm(".popup__button-profile", contactServerOperation);
+}
+
+function handlePictureFormSubmit(inputValue) {
+  const contactServerOperation = () => {
+    return api.updateProfilePicture(inputValue).then(() => {
+      user.setAvatar(inputValue.url);
+      pictureFormPopup.close();
+    });
+  };
+
+  submitForm(".popup__button-picture", contactServerOperation);
+}
+
+function handleAddSubmit(inputValues) {
+  const newCardData = {
+    name: inputValues.title,
+    link: inputValues.url,
+  };
+
+  const contactServerOperation = () => {
+    return api.addCard(newCardData).then((savedCard) => {
+      createAndAddCard(savedCard);
+      addPopup.close();
+    });
+  };
+
+  submitForm(".popup__button-card", contactServerOperation);
+}
+
+function handleCardClick(link, name) {
+  imagePopup.open(link, name, name);
+}
 
 function handleDeleteConfirmation(cardId, cardInstance) {
   const removeCard = () => {
@@ -54,143 +186,3 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
     createAndAddCard(cardData);
   });
 });
-
-setupImageModalListeners();
-
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
-
-const profileForm = document.querySelector("#profile-form");
-const nameInput = profileForm.querySelector('input[name="name"]');
-const aboutInput = profileForm.querySelector('input[name="about"]');
-
-const user = new UserInfo({
-  nameSelector: ".profile__info-name",
-  aboutSelector: ".profile__info-description",
-  avatarSelector: ".profile__image",
-});
-
-function submitForm(buttonSelector, contactServerOperation) {
-  const submitButton = document.querySelector(buttonSelector);
-
-  submitButton.textContent = "Salvando...";
-
-  setTimeout(() => {
-    const contactServer = contactServerOperation();
-
-    contactServer
-      .then(() => {})
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        submitButton.textContent = "Salvar";
-      });
-  }, 600);
-}
-
-function handleProfileSubmit(inputValues) {
-  const contactServerOperation = () => {
-    return api.updateUserInfo(inputValues).then(() => {
-      user.setUserInfo({
-        name: inputValues.name,
-        about: inputValues.about,
-        avatar: user.getUserInfo().avatar,
-      });
-      profilePopup.close();
-    });
-  };
-
-  submitForm(".popup__button-profile", contactServerOperation);
-}
-
-const profilePopup = new PopupWithForm(
-  handleProfileSubmit,
-  ".popup_type_profile"
-);
-
-const profileValidator = new FormValidator(settings, profileForm);
-const profileButton = document.querySelector(".profile__info-button-image");
-
-profilePopup.setEventListeners();
-
-profileButton.addEventListener("click", () => {
-  profileValidator.enableValidation();
-  const currentUserInfo = user.getUserInfo();
-
-  nameInput.value = currentUserInfo.name;
-  aboutInput.value = currentUserInfo.about;
-
-  profilePopup.open();
-});
-
-const pictureFormElement = document.querySelector("#profile-picture-form");
-
-const pictureFormPopup = new PopupWithForm(
-  handlePictureFormSubmit,
-  ".popup_type_pfp"
-);
-
-pictureFormPopup.setEventListeners();
-
-const pictureFormValidator = new FormValidator(settings, pictureFormElement);
-
-const pictureFormButton = document.querySelector(".profile__image-container");
-
-pictureFormButton.addEventListener("click", () => {
-  pictureFormValidator.enableValidation();
-  pictureFormPopup.open();
-});
-
-function handlePictureFormSubmit(inputValue) {
-  const contactServerOperation = () => {
-    return api.updateProfilePicture(inputValue).then(() => {
-      user.setAvatar(inputValue.url);
-      pictureFormPopup.close();
-    });
-  };
-
-  submitForm(".popup__button-picture", contactServerOperation);
-}
-
-const cardForm = document.querySelector("#add-form");
-const addPopup = new PopupWithForm(handleAddSubmit, ".popup_type_add");
-const addValidator = new FormValidator(settings, cardForm);
-const addButton = document.querySelectorAll(".profile__add-button-click");
-const imagePopup = new PopupWithImage(".image-popup");
-imagePopup.setEventListeners();
-
-function handleAddSubmit(inputValues) {
-  const newCardData = {
-    name: inputValues.title,
-    link: inputValues.url,
-  };
-
-  const contactServerOperation = () => {
-    return api.addCard(newCardData).then((savedCard) => {
-      createAndAddCard(savedCard);
-      addPopup.close();
-    });
-  };
-
-  submitForm(".popup__button-card", contactServerOperation);
-}
-
-addPopup.setEventListeners();
-
-addButton.forEach((button) => {
-  button.addEventListener("click", () => {
-    addValidator.enableValidation();
-    addPopup.open();
-  });
-});
-
-function handleCardClick(link, name) {
-  imagePopup.open(link, name, name);
-}
