@@ -51,7 +51,7 @@ function handleDeleteConfirmation(cardId, cardInstance) {
 Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
   user.setUserInfo(res[0]);
   res[1].forEach((cardData) => {
-    const cardElement = createAndAddCard(cardData);
+    createAndAddCard(cardData);
   });
 });
 
@@ -136,7 +136,6 @@ const pictureFormValidator = new FormValidator(settings, pictureFormElement);
 const pictureFormButton = document.querySelector(".profile__image-container");
 
 pictureFormButton.addEventListener("click", () => {
-  console.log("clicou no container da imagem");
   pictureFormValidator.enableValidation();
   pictureFormPopup.open();
 });
@@ -159,7 +158,6 @@ function handlePictureFormSubmit(inputValue) {
       })
       .finally(() => {
         submitButton.textContent = "Salvar";
-        inputValue.textContent = "";
       });
   }
 }
