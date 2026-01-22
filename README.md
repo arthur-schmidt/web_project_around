@@ -12,7 +12,7 @@ As alterações são aplicadas de forma dinâmica, proporcionando uma experiênc
 
 ## 📸 Capturas de tela
 
-![Demonstração do projeto](https://youtu.be/sHZmz9fHXHI)
+[Assista ao vídeo de demonstração](https://youtu.be/sHZmz9fHXHI)
 ![Print da sessão elements](./images/elements_printscreen.png)
 ![Print da sessão profile](./images/profile_printscreen.png)
 
