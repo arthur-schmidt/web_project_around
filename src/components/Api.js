@@ -4,148 +4,61 @@ export default class Api {
     this.headers = options.headers;
   }
 
-  getUserInfo() {
-    return fetch(`${this.baseUrl}/users/me`, {
+  _makeRequest(url, method = "GET", body = null) {
+    const config = {
+      method,
       headers: this.headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    };
+
+    if (body) {
+      config.body = JSON.stringify(body);
+    }
+
+    return fetch(url, config).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Erro: ${res.status}`);
+    });
+  }
+
+  getUserInfo() {
+    return this._makeRequest(`${this.baseUrl}/users/me`);
   }
 
   updateUserInfo(userData) {
-    return fetch(`${this.baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: this.headers,
-      body: JSON.stringify({
-        name: userData.name,
-        about: userData.about,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    return this._makeRequest(`${this.baseUrl}/users/me`, "PATCH", {
+      name: userData.name,
+      about: userData.about,
+    });
   }
 
   updateProfilePicture(userData) {
-    return fetch(`${this.baseUrl}/users/me/avatar`, {
-      method: "PATCH",
-      headers: this.headers,
-      body: JSON.stringify({
-        avatar: userData.url,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    return this._makeRequest(`${this.baseUrl}/users/me/avatar`, "PATCH", {
+      avatar: userData.url,
+    });
   }
 
   getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, {
-      headers: this.headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    return this._makeRequest(`${this.baseUrl}/cards`);
   }
 
   addCard(cardData) {
-    return fetch(`${this.baseUrl}/cards`, {
-      method: "POST",
-      headers: this.headers,
-      body: JSON.stringify({
-        name: cardData.name,
-        link: cardData.link,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    return this._makeRequest(`${this.baseUrl}/cards`, "POST", {
+      name: cardData.name,
+      link: cardData.link,
+    });
   }
 
   deleteCard(cardId) {
-    return fetch(`${this.baseUrl}/cards/${cardId}`, {
-      method: "DELETE",
-      headers: this.headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    return this._makeRequest(`${this.baseUrl}/cards/${cardId}`, "DELETE");
   }
 
   addLike(cardId) {
-    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: this.headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    return this._makeRequest(`${this.baseUrl}/cards/${cardId}/likes`, "PUT");
   }
 
   removeLike(cardId) {
-    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
-      method: "DELETE",
-      headers: this.headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-        return Promise.reject(err);
-      });
+    return this._makeRequest(`${this.baseUrl}/cards/${cardId}/likes`, "DELETE");
   }
 }
