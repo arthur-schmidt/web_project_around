@@ -76,30 +76,38 @@ const user = new UserInfo({
   avatarSelector: ".profile__image",
 });
 
-function handleProfileSubmit(inputValues) {
-  const submitButton = document.querySelector(".popup__button-profile");
+function submitForm(buttonSelector, contactServerOperation) {
+  const submitButton = document.querySelector(buttonSelector);
 
   submitButton.textContent = "Salvando...";
-  setTimeout(contactServer, 500);
 
-  function contactServer() {
-    api
-      .updateUserInfo(inputValues)
-      .then(() => {
-        user.setUserInfo({
-          name: inputValues.name,
-          about: inputValues.about,
-          avatar: user.getUserInfo().avatar,
-        });
-        profilePopup.close();
-      })
+  setTimeout(() => {
+    const contactServer = contactServerOperation();
+
+    contactServer
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         submitButton.textContent = "Salvar";
       });
-  }
+  }, 600);
+}
+
+function handleProfileSubmit(inputValues) {
+  const contactServerOperation = () => {
+    return api.updateUserInfo(inputValues).then(() => {
+      user.setUserInfo({
+        name: inputValues.name,
+        about: inputValues.about,
+        avatar: user.getUserInfo().avatar,
+      });
+      profilePopup.close();
+    });
+  };
+
+  submitForm(".popup__button-profile", contactServerOperation);
 }
 
 const profilePopup = new PopupWithForm(
@@ -141,25 +149,14 @@ pictureFormButton.addEventListener("click", () => {
 });
 
 function handlePictureFormSubmit(inputValue) {
-  const submitButton = document.querySelector(".popup__button-picture");
+  const contactServerOperation = () => {
+    return api.updateProfilePicture(inputValue).then(() => {
+      user.setAvatar(inputValue.url);
+      pictureFormPopup.close();
+    });
+  };
 
-  submitButton.textContent = "Salvando...";
-  setTimeout(contactServer, 500);
-
-  function contactServer() {
-    api
-      .updateProfilePicture(inputValue)
-      .then(() => {
-        user.setAvatar(inputValue.url);
-        pictureFormPopup.close();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        submitButton.textContent = "Salvar";
-      });
-  }
+  submitForm(".popup__button-picture", contactServerOperation);
 }
 
 const cardForm = document.querySelector("#add-form");
@@ -174,22 +171,15 @@ function handleAddSubmit(inputValues) {
     name: inputValues.title,
     link: inputValues.url,
   };
-  const submitButton = document.querySelector(".popup__button-card");
 
-  submitButton.textContent = "Salvando...";
-  setTimeout(contactServer, 500);
+  const contactServerOperation = () => {
+    return api.addCard(newCardData).then((savedCard) => {
+      createAndAddCard(savedCard);
+      addPopup.close();
+    });
+  };
 
-  function contactServer() {
-    api
-      .addCard(newCardData)
-      .then((savedCard) => {
-        createAndAddCard(savedCard);
-        addPopup.close();
-      })
-      .finally(() => {
-        submitButton.textContent = "Salvar";
-      });
-  }
+  submitForm(".popup__button-card", contactServerOperation);
 }
 
 addPopup.setEventListeners();
