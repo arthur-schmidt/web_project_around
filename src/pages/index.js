@@ -180,9 +180,11 @@ function handleDeleteConfirmation(cardId, cardInstance) {
   confirmationPopup.open();
 }
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then((res) => {
-  user.setUserInfo(res[0]);
-  res[1].forEach((cardData) => {
-    createAndAddCard(cardData);
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userInfo, initialCards]) => {
+    user.setUserInfo(userInfo);
+    initialCards.forEach(createAndAddCard);
+  })
+  .catch((error) => {
+    console.error(`Erro ao carregar dados iniciais:`, error);
   });
-});
