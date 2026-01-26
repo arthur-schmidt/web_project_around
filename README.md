@@ -13,8 +13,8 @@ As alterações são aplicadas de forma dinâmica, proporcionando uma experiênc
 ## 📸 Capturas de tela
 
 [Assista ao vídeo de demonstração](https://youtu.be/sHZmz9fHXHI)
-![Print da sessão elements](./images/elements_printscreen.png)
-![Print da sessão profile](./images/profile_printscreen.png)
+![Print da sessão elements](src/images/elements_printscreen.png)
+![Print da sessão profile](src/images/profile_printscreen.png)
 
 ## 🛠️ Tecnologias e metodologias
 
@@ -25,4 +25,4 @@ As alterações são aplicadas de forma dinâmica, proporcionando uma experiênc
 
 ## 🔗 Acesse o projeto:
 
-https://arthur-schmidt.github.io/web_project_around/
+https://projectaround.netlify.app/
