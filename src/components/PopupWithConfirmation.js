@@ -5,7 +5,7 @@ export default class PopupWithConfirmation extends Popup {
     super(popupSelector);
     this._handleConfirmation = handleConfirmation;
     this._confirmButton = this._popup.querySelector(
-      ".popup__container-confirm_button"
+      ".popup__container-confirm_button",
     );
   }
 

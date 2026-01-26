@@ -6,7 +6,7 @@ export default class Card {
     templateSelector,
     handleCardClick,
     handleDeleteConfirmation,
-    api
+    api,
   ) {
     this._name = data.name;
     this._link = data.link;

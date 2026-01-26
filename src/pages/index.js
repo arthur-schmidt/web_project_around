@@ -36,7 +36,7 @@ const addButtons = document.querySelectorAll(".profile__add-button-click");
 
 const cardsListSection = new Section(
   { items: [], renderer: createAndAddCard },
-  ".elements"
+  ".elements",
 );
 
 const user = new UserInfo({
@@ -55,11 +55,11 @@ addValidator.enableValidation();
 
 const profilePopup = new PopupWithForm(
   handleProfileSubmit,
-  ".popup_type_profile"
+  ".popup_type_profile",
 );
 const pictureFormPopup = new PopupWithForm(
   handlePictureFormSubmit,
-  ".popup_type_pfp"
+  ".popup_type_pfp",
 );
 const addPopup = new PopupWithForm(handleAddSubmit, ".popup_type_add");
 const imagePopup = new PopupWithImage(".image-popup");
@@ -70,7 +70,7 @@ function createAndAddCard(cardData) {
     "#element-template",
     handleCardClick,
     (cardId) => handleDeleteConfirmation(cardId, card),
-    api
+    api,
   );
   const cardElement = card.generateCard();
   cardsListSection.addItem(cardElement);
@@ -174,7 +174,7 @@ function handleDeleteConfirmation(cardId, cardInstance) {
   };
   const confirmationPopup = new PopupWithConfirmation(
     removeCard,
-    ".popup_type_delete"
+    ".popup_type_delete",
   );
   confirmationPopup.setEventListeners();
   confirmationPopup.open();
